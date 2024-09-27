@@ -1,0 +1,10 @@
+GET http://localhost:3000/accounts
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTcyNzM5NDM1N30.U_Z-vjf4zlS8AgmiY7fDPAjhlLybcrU9VlMPRdcCh-Y
+
+###
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+    "email": "admin@admin.com"
+}
