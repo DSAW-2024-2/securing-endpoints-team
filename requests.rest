@@ -24,3 +24,26 @@ Content-Type: application/json
 {
     "email": "admin@admin.com"
 }
+
+### Login
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "email": "admin@admin.com",
+  "password": "admin"
+}
+
+### Get accounts (protected route)
+GET http://localhost:3000/accounts
+Authorization: Bearer <TOKEN_JWT>
+
+### Get accounts without token
+GET http://localhost:3000/accounts
+
+### Get accounts with invalid token
+GET http://localhost:3000/accounts
+Authorization: Bearer invalid_token
+
+### Non-existent route (should return 404)
+GET http://localhost:3000/unknown-route
