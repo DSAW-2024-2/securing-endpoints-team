@@ -40,6 +40,7 @@ app.post('/login', (req, res) => {
   res.json({accessToken: accessToken})
 })
 
+//token check
 function authenticateToken(req, res, next) {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(" ")[1]
@@ -47,7 +48,9 @@ function authenticateToken(req, res, next) {
     res.sendStatus(401);
   }
 
+  //verify token
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    //check if token is valid
     if(err) {
       return res.sendStatus(403);
     }
