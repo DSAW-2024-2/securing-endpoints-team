@@ -13,9 +13,10 @@ userRoute = require('./Routes/user');
 productRoute = require('./Routes/product');
 orderRoute = require('./Routes/order');
 
-app.use('/users', userRoute);
-app.use('/products', productRoute);
-app.use('/orders', orderRoute);
+// Apply authenticateToken middleware to all routes
+app.use('/users', authenticateToken, userRoute);
+app.use('/products', authenticateToken, productRoute);
+app.use('/orders', authenticateToken, orderRoute);
 
 //Authentication
 
@@ -45,7 +46,7 @@ function authenticateToken(req, res, next) {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(" ")[1]
   if(token == null){
-    res.sendStatus(401);
+    return res.sendStatus(401);
   }
 
   //verify token
@@ -54,18 +55,14 @@ function authenticateToken(req, res, next) {
     if(err) {
       return res.sendStatus(403);
     }
-    req.user =user;
+    req.user = user;
     next();
-  }
-    
-  )
+  })
 }
-
 
 app.use((req, res) => {
   res.status(404).send('Not found');
 });
-
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
